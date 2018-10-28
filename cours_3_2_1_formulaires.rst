@@ -46,7 +46,7 @@ On utilise MaterializeCSS pour que ce soit plus joli : `<http://materializecss.c
 :file:`commentaires.ejs` :
 
 
-.. code-block:: text
+.. code-block:: html
 
     <html>
 
@@ -97,6 +97,40 @@ On utilise MaterializeCSS pour que ce soit plus joli : `<http://materializecss.c
     </body>
 
     </html>
+	
+
+
+Bulma
+^^^^^
+
+On peut également utiliser Bulma qui est très complet : `<https://bulma.io/documentation/form>`_
+
+Installation/configuration de Bulma
+"""""""""""""""""""""""""""""""""""
+
+Une fois dans le répertoire de travail (:code:`cd`)_
+
+
+.. code-block:: os
+
+	npm init 
+
+
+.. code-block:: os
+
+	npm install bulma 
+	
+Bulma est installé. Reste à l'initialiser dans le fichier html. Pour cela, il faut rajouter dans le :code:`header` la ligne suivante :
+
+.. code-block:: html
+
+	<link rel="stylesheet" href="bulma/css/bulma.min.css">
+	
+
+Exemple de formulaire avec Bulma
+""""""""""""""""""""""""""""""""	
+
+
 
 Query Strings
 ^^^^^^^^^^^^^ 
