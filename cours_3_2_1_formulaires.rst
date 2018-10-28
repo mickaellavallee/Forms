@@ -197,7 +197,6 @@ Modifions le template pour les utiliser. On va tout de même faire attention au 
     
 .. note :: Notez comment le code HTML est imbriqué dans le code EJS. C'est un peu sale, on va donc essayer de le faire le moins possible. Pour la zone de texte, on est ainsi obligé de tout mettre sur une seule ligne, sinon les retours chariot sont comptés comme une réponse.
 
-
 Et avec Bulma ?
 ===============
 
@@ -225,7 +224,7 @@ Bulma est installé. Reste à l'initialiser dans le fichier html. Pour cela, il 
 	<link rel="stylesheet" href="bulma/css/bulma.min.css">
 	
 	
-Exemple de formulaire pas à pas avec Bulma
+Exemple de formulaire avec Bulma
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 Voici le fichier html de base sur lequel nous pouvons nous baser avant de mettre le formulaire même :
@@ -247,7 +246,7 @@ Voici le fichier html de base sur lequel nous pouvons nous baser avant de mettre
 		Formulaire
 	      </h1>
 	      <p class="subtitle">
-		My first form with <strong>Bulma</strong>!
+		Mon premier formulaire avec <strong>Bulma</strong> !
 		<br><br>
 	      </p>
 	    </div>
@@ -269,6 +268,129 @@ L'exemple d'un champs basique est le suivant :
 
 Observez bien cet exemple et essayez de jouer avec les différentes possibilités pour bien comprendre. Par exemple, dans la balise :code:`<input ...>` le type peut être changé en fonction de ce que vous voulez que l'utilisateur entre (principalement :code:`text`, :code:`email` et :code:`url`)
 
+Template front
+^^^^^^^^^^^^^^
+
+Maintenant que nous avons les bases, voici ce que nous proposons pour le code html du formulaire. Les principaux types de chanmps sont utilisés ce code, libre à vous d'observer comment cela fonctionne — notammeent à l'aide de la documentation. Cependant, ce fichier ne récupère pas encore les informations envoyées, il faudra passer par du php pour extraire et traiter les informations (comme précedemment).
+
+.. code-block:: html
+
+	<div class="field is-horizontal">
+	  <div class="field-label is-normal">
+	    <label class="label">De</label>
+	  </div>
+	  <div class="field-body">
+	    <div class="field">
+	      <p class="control is-expanded">
+	        <input class="input" type="text" placeholder="Ton petit nom" required="required">
+	      </p>
+	    </div>
+		<div class="field has-addons has-icons-right">
+		  <p class="control">
+		    <input class="input" type="text" placeholder="prenom.nom">
+			<!-- mettre type="email" si vous faites un champs email classique -->
+		  </p>
+		  <p class="control">
+		    <a class="button is-static">
+		      @
+		    </a>
+		</p>
+	        <div class="select is-fullwidth">
+	          <select>
+	            <option>centrale-marseille.fr</option>
+	            <option>gmail.com</option>
+	            <option>outlook.com</option>
+				<option>hotmail.fr</option>
+				<option>aucun-donc-je-ne-peux-pas-vous-contacter.fr</option>
+	          </select>
+	        </div>
+		</div>
+	  </div>
+	</div>
+
+	<div class="field is-horizontal">
+	  <div class="field-label"></div>
+	  <div class="field-body">
+	    <div class="field is-expanded">
+	      <div class="field has-addons">
+	        <p class="control">
+	          <a class="button is-static">
+	            +33
+	          </a>
+	        </p>
+	        <p class="control is-expanded">
+	          <input class="input" type="tel" placeholder="Numéro de téléphone">
+	        </p>
+	      </div>
+	      <p class="help">Du coup, n'écrivez pas le premier "0"</p>
+	    </div>
+	  </div>
+	</div>
+
+	<div class="field is-horizontal">
+	  <div class="field-label">
+	    <label class="label">Es-tu un 
+			ninja ?</label>
+	  </div>
+	  <div class="field-body">
+	    <div class="field is-narrow">
+	      <div class="control">
+	        <label class="radio">
+	          <input type="radio" name="member">
+	          Oui
+	        </label>
+	        <label class="radio">
+	          <input type="radio" name="member">
+	          Non
+	        </label>
+	      </div>
+	    </div>
+	  </div>
+	</div>
+
+	<div class="field is-horizontal">
+	  <div class="field-label is-normal">
+	    <label class="label">Objet</label>
+	  </div>
+	  <div class="field-body">
+	    <div class="field">
+	      <div class="control">
+	        <input class="input is-required" type="text" placeholder='Par exemple : Spam via formulaire de contact'>
+	      </div>
+	      <p class="help is-required">
+	        Ce champs est obligatoire
+	      </p>
+	    </div>
+	  </div>
+	</div>
+
+	<div class="field is-horizontal">
+	  <div class="field-label is-normal">
+	    <label class="label">Question</label>
+	  </div>
+	  <div class="field-body">
+	    <div class="field">
+	      <div class="control">
+	        <textarea class="textarea" placeholder="Comment puis-je vous aider ?"></textarea>
+	      </div>
+	    </div>
+	  </div>
+	</div>
+
+	<div class="field is-horizontal">
+	  <div class="field-label">
+		  
+	  </div>
+	  <div class="field-body">
+	    <div class="field">
+	      <div class="control">
+	        <button class="button is-primary" type="submit">
+	          Envoyer le formulaire
+	        </button>
+	      </div>
+	    </div>
+	  </div>
+	</div>
 
 
     
