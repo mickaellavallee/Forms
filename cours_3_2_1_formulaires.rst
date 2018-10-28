@@ -97,39 +97,6 @@ On utilise MaterializeCSS pour que ce soit plus joli : `<http://materializecss.c
     </body>
 
     </html>
-	
-
-
-Bulma
-^^^^^
-
-On peut également utiliser Bulma qui est très complet : `<https://bulma.io/documentation/form>`_
-
-Installation/configuration de Bulma
-"""""""""""""""""""""""""""""""""""
-
-Une fois dans le répertoire de travail (:code:`cd`)_
-
-
-.. code-block:: os
-
-	npm init 
-
-
-.. code-block:: os
-
-	npm install bulma 
-	
-Bulma est installé. Reste à l'initialiser dans le fichier html. Pour cela, il faut rajouter dans le :code:`header` la ligne suivante :
-
-.. code-block:: html
-
-	<link rel="stylesheet" href="bulma/css/bulma.min.css">
-	
-
-Exemple de formulaire avec Bulma
-""""""""""""""""""""""""""""""""	
-
 
 
 Query Strings
@@ -231,6 +198,76 @@ Modifions le template pour les utiliser. On va tout de même faire attention au 
 .. note :: Notez comment le code HTML est imbriqué dans le code EJS. C'est un peu sale, on va donc essayer de le faire le moins possible. Pour la zone de texte, on est ainsi obligé de tout mettre sur une seule ligne, sinon les retours chariot sont comptés comme une réponse.
 
 
+Et avec Bulma ?
+===============
+
+On peut également utiliser Bulma qui est très complet : `<https://bulma.io/documentation/form>`_
+
+Installation/configuration de Bulma
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Une fois dans le répertoire de travail (:code:`cd`)
+
+
+.. code-block:: os
+
+	npm init 
+
+
+.. code-block:: os
+
+	npm install bulma 
+	
+Bulma est installé. Reste à l'initialiser dans le fichier html. Pour cela, il faut rajouter dans le :code:`header` la ligne suivante :
+
+.. code-block:: html
+
+	<link rel="stylesheet" href="bulma/css/bulma.min.css">
+	
+	
+Exemple de formulaire pas à pas avec Bulma
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Voici le fichier html de base sur lequel nous pouvons nous baser avant de mettre le formulaire même :
+
+.. code-block:: html
+
+	<!DOCTYPE html>
+	<html>
+	  <head>
+	    <meta charset="utf-8">
+	    <meta name="viewport" content="width=device-width, initial-scale=1">
+	    <title>Exemple de formulaire</title>
+	    <link rel="stylesheet" href="bulma/css/bulma.min.css">
+	  </head>
+	  <body>  
+	  <section class="section">
+	    <div class="container">
+	      <h1 class="title">
+		Formulaire
+	      </h1>
+	      <p class="subtitle">
+		My first form with <strong>Bulma</strong>!
+		<br><br>
+	      </p>
+	    </div>
+	  </section>
+	  </body>
+	</html>
+
+L'exemple d'un champs basique est le suivant :
+
+.. code-block:: html
+
+	<div class="field">
+	  <label class="label">Nom du champs (Pseudo, Nom, Prénom, etc.)</label>
+	  <div class="control">
+	    <input class="input" type="text" placeholder="Texte mis en indication dans le champs à remplir ('input')">
+	  </div>
+	  <p class="help">"Help text" pour éventuellement donner des indications</p>
+	</div>
+
+Observez bien cet exemple et essayez de jouer avec les différentes possibilités pour bien comprendre. Par exemple, dans la balise :code:`<input ...>` le type peut être changé en fonction de ce que vous voulez que l'utilisateur entre (principalement :code:`text`, :code:`email` et :code:`url`)
 
 
 
