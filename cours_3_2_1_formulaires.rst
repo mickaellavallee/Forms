@@ -239,7 +239,7 @@ Observez bien cet exemple et essayez de jouer avec les différentes possibilité
 Template de formulaire complet
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Maintenant que nous avons les bases, voici ce que nous proposons pour le code html du formulaire. Les principaux types de chanmps sont utilisés ce code, libre à vous d'observer comment cela fonctionne — notammeent à l'aide de la documentation. Cependant, ce fichier ne récupère pas encore les informations envoyées, il faudra passer par du php pour extraire et traiter les informations (comme précedemment).
+Maintenant que nous avons les bases, voici ce que nous proposons pour le code html du formulaire. Les principaux types de champs sont utilisés dans ce code, libre à vous d'observer comment cela fonctionne — notamment à l'aide de la documentation. Cependant, ce fichier ne récupère pas encore les informations envoyées, il faudra passer par du php pour extraire et traiter les informations (comme précédemment).
 
 .. code-block:: html
 
@@ -378,5 +378,75 @@ Maintenant que nous avons les bases, voici ce que nous proposons pour le code ht
 	</body>
 	</html>
 	
-JavaScript
+Récupération des champs du formulaire en javaScript et affichage de messages d'alerte
 ^^^^^^^^^^
+
+Nous allons maintenant récupérer les réponses du formulaire pour pouvoir les afficher dans un message d'alerte. Nous allons aussi rajouter un bouton reset qui réinitialise tous les champs. Par ailleurs, plusieurs messages d'alerte indiquent lorsque nous envoyons les données ou lorsqu'on réinitialise la page.
+
+On commence par créer un fichier :file:`form.js` que l'on place dans un dossier script.
+
+.. code-block:: js
+
+	var myForm = document.getElementById('myForm');
+
+	myForm.addEventListener('submit', function(e) {
+		if(confirm("Êtes-vous sûr de vouloir envoyer le formulaire ?")){
+		myForm.submit()
+
+		var message = 'Vous avez envoyé le formulaire !\n\nVotre nom est : ' + document.getElementById('name').value + '.\n'
+
+
+		if (document.getElementById('mail').value){
+			message += 'Votre adresse mail est : ' + document.getElementById('mail').value + '@' + document.getElementById('domaine').value + '.\n'
+			}
+
+		if (document.getElementById('tel').value){
+			message += 'Votre numéro de téléphone est le : ' + document.getElementById('tel').value + '.\n'
+		}
+
+		if (document.getElementById('object').value){
+			message += 'L\'objet de votre contact est : ' + document.getElementById('object').value + '.\n'
+		}
+
+		if (document.getElementById('msg').value){
+			message += 'Votre message est : ' + document.getElementById('msg').value + '.\n'
+		}
+
+		alert(message)
+
+	    e.preventDefault();
+		} else {
+		   e.returnValue = false;
+		}
+
+
+	});
+
+	myForm.addEventListener('reset', function(e) {
+		if(confirm("Voulez-vous vraiment réinitialiser le formulaire ?")){
+	    alert('Vous avez réinitialisé le formulaire !');
+	    } else {
+	    e.returnValue = false
+	    }
+	});
+
+	var ninja1 = document.getElementById('ninja1')
+	ninja1.onclick = function() { alert('NINJAAAAA')}
+
+	var ninja2 = document.getElementById('ninja2')
+	ninja2.onclick = function() {alert('Triste vie...')}
+
+On ajoute ensuite à la fin du fichier :file:`commentaires.ejs` la ligne suivante :
+
+.. code-block:: html
+
+	<script type="text/javascript" src="/js/form.js"></script>
+
+On rajoute également des paramètres id ="..." afin de pour voir les appeler dans le fichier form.js.
+
+Dans le fichier :file:`app.ejs`, on ajoute :
+
+.. code-block:: js
+
+	app.use("/js", express.static(__dirname + '/script'));
+
