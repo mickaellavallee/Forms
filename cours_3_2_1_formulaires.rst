@@ -390,18 +390,18 @@ On commence par créer un fichier :file:`form.js` que l'on place dans un dossier
 	var myForm = document.getElementById('myForm');
 
 	myForm.addEventListener('submit', function(e) {
-		if(confirm("Êtes-vous sûr de vouloir envoyer le formulaire ?")){
-		myForm.submit()
+		if(confirm("Êtes-vous sûr de vouloir envoyer le formulaire ?")){ // première fenêtre d'alerte
+		myForm.submit() // le formulaire est envoyé
 
-		var message = 'Vous avez envoyé le formulaire !\n\nVotre nom est : ' + document.getElementById('name').value + '.\n'
+		var message = 'Vous avez envoyé le formulaire !\n\nVotre nom est : ' + document.getElementById('name').value + '.\n' // le champ nom est obligatoire donc on l'affiche dans la deuxième alerte quoi qu'il arrive
 
 
-		if (document.getElementById('mail').value){
-			message += 'Votre adresse mail est : ' + document.getElementById('mail').value + '@' + document.getElementById('domaine').value + '.\n'
+		if (document.getElementById('mail').value){ //si le champ mail est rempli
+			message += 'Votre adresse mail est : ' + document.getElementById('mail').value + '@' + document.getElementById('domaine').value + '.\n' //on le renvoie dans la deuxième alerte
 			}
 
-		if (document.getElementById('tel').value){
-			message += 'Votre numéro de téléphone est le : ' + document.getElementById('tel').value + '.\n'
+		if (document.getElementById('tel').value){ //idem
+			message += 'Votre numéro de téléphone est le : ' + document.getElementById('tel').value + '.\n' //idem
 		}
 
 		if (document.getElementById('object').value){
@@ -412,17 +412,17 @@ On commence par créer un fichier :file:`form.js` que l'on place dans un dossier
 			message += 'Votre message est : ' + document.getElementById('msg').value + '.\n'
 		}
 
-		alert(message)
+		alert(message) //on envoie l'alerte
 
 	    e.preventDefault();
 		} else {
-		   e.returnValue = false;
+		   e.returnValue = false; //si on ne veut pas envoyer le formulaire, les champs gardent les mêmes valeurs
 		}
 
 
 	});
 
-	myForm.addEventListener('reset', function(e) {
+	myForm.addEventListener('reset', function(e) { //pour réinitialiser le questionnaire
 		if(confirm("Voulez-vous vraiment réinitialiser le formulaire ?")){
 	    alert('Vous avez réinitialisé le formulaire !');
 	    } else {
@@ -431,10 +431,10 @@ On commence par créer un fichier :file:`form.js` que l'on place dans un dossier
 	});
 
 	var ninja1 = document.getElementById('ninja1')
-	ninja1.onclick = function() { alert('NINJAAAAA')}
+	ninja1.onclick = function() { alert('NINJAAAAA')} //alerte pour le bouton oui de la question ninja
 
 	var ninja2 = document.getElementById('ninja2')
-	ninja2.onclick = function() {alert('Triste vie...')}
+	ninja2.onclick = function() {alert('Triste vie...')} //alerte pour le bouton non de la question ninja
 
 On ajoute ensuite à la fin du fichier :file:`commentaires.ejs` la ligne suivante :
 
@@ -443,6 +443,159 @@ On ajoute ensuite à la fin du fichier :file:`commentaires.ejs` la ligne suivant
 	<script type="text/javascript" src="/js/form.js"></script>
 
 On rajoute également des paramètres id ="..." afin de pour voir les appeler dans le fichier form.js.
+
+Le fichier :file:`commentaires.ejs` devient donc :
+
+.. code-block:: html
+
+	<html>
+
+	<head>
+
+
+		<% include partials/head_css_import.ejs %>
+
+	    <meta charset="utf-8" />
+	    <title>Commentaires</title>
+	    <link rel="stylesheet" type="text/css" href="/static/node_modules/bulma/css/bulma.min.css">
+
+
+
+	</head>
+
+	<body>
+
+	    <% include partials/navbar.ejs %>
+
+	    <div class="row">
+		<form id="myForm" class="col s12"> <!-- ajout de l'id "myForm" -->
+		    <div class="field is-horizontal">
+		      <div class="field-label is-normal">
+			<label class="label">Nom</label>
+		      </div>
+		      <div class="field-body">
+			<div class="field">
+			  <p class="control is-expanded">
+			    <input id="name" class="input" type="text" placeholder="Ton petit nom" required="required"> <!-- pour chaque input des champs du formulaire on ajoute un id -->
+			  </p>
+			</div>
+			    <div class="field has-addons has-icons-right">
+			      <p class="control">
+				<input id='mail' class="input" type="text" placeholder="prenom.nom">
+				    <!-- mettre type="email" si vous faites un champs email classique -->
+			      </p>
+			      <p class="control">
+				<a class="button is-static">
+				  @
+				</a>
+			    </p>
+			    <div class="select is-fullwidth">
+			      <select id="domaine">
+				<option>centrale-marseille.fr</option>
+				<option>gmail.com</option>
+				<option>outlook.com</option>
+				<option>hotmail.fr</option>
+				<option>aucun-donc-je-ne-peux-pas-vous-contacter.fr</option>
+			      </select>
+			    </div>
+			    </div>
+		      </div>
+		    </div>
+
+		    <div class="field is-horizontal">
+		      <div class="field-label"></div>
+		      <div class="field-body">
+			<div class="field is-expanded">
+			  <div class="field has-addons">
+			    <p class="control">
+			      <a class="button is-static">
+				+33
+			      </a>
+			    </p>
+			    <p class="control is-expanded">
+			      <input id="tel" class="input" type="number" placeholder="Numéro de téléphone"> <!-- type number pour qu'on ne puisse mettre que des numéros -->
+			    </p>
+			  </div>
+			  <p class="help">Du coup, n'écrivez pas le premier "0"</p>
+			</div>
+		      </div>
+		    </div>
+
+		    <div class="field is-horizontal">
+		      <div class="field-label">
+			<label class="label">Es-tu un
+				    ninja ?</label>
+		      </div>
+		      <div class="field-body">
+			<div class="field is-narrow">
+			  <div class="control">
+			    <label class="radio">
+			      <input id="ninja1" type="radio" name="member">
+			      Oui
+			    </label>
+			    <label class="radio">
+			      <input id="ninja2" type="radio" name="member">
+			      Non
+			    </label>
+			  </div>
+			</div>
+		      </div>
+		    </div>
+
+		    <div class="field is-horizontal">
+		      <div class="field-label is-normal">
+			<label class="label">Objet</label>
+		      </div>
+		      <div class="field-body">
+			<div class="field">
+			  <div class="control">
+			    <input id="object" class="input is-required" type="text" placeholder='Par exemple : Spam via formulaire de contact'>
+			  </div>
+			  <p class="help is-required">
+			    Ce champs est obligatoire
+			  </p>
+			</div>
+		      </div>
+		    </div>
+
+		    <div class="field is-horizontal">
+		      <div class="field-label is-normal">
+			<label class="label">Question</label>
+		      </div>
+		      <div class="field-body">
+			<div class="field">
+			  <div class="control">
+			    <textarea id="msg" class="textarea" placeholder="Comment puis-je vous aider ?"></textarea>
+			  </div>
+			</div>
+		      </div>
+		    </div>
+
+		    <div class="field is-horizontal">
+		      <div class="field-label">
+
+		      </div>
+		      <div class="field-body">
+			<div class="field">
+			  <div class="control">
+			    <input type="submit" value="Envoyer le formulaire" class="button is-primary"/> <!-- ajout du type submit -->
+			     <input type="reset" value="Reset" class="button is-secondary"/> <!-- ajout du type reset -->
+			  </div>
+			</div>
+		      </div>
+		    </div>
+		</form>
+	    </div>
+
+
+		<script type="text/javascript" src="/js/form.js"></script>
+
+
+	    <% include partials/js_import.ejs %>
+
+	</body>
+
+	</html>
 
 Dans le fichier :file:`app.ejs`, on ajoute :
 
