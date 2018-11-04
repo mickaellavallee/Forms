@@ -222,14 +222,14 @@ Bulma est installé. Reste à l'initialiser dans le fichier html. Pour cela, il 
 Exemple de formulaire avec Bulma
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-L'exemple d'un champs basique est le suivant :
+L'exemple d'un champ basique est le suivant :
 
 .. code-block:: html
 
 	<div class="field">
-	  <label class="label">Nom du champs (Pseudo, Nom, Prénom, etc.)</label>
+	  <label class="label">Nom du champ (Pseudo, Nom, Prénom, etc.)</label>
 	  <div class="control">
-	    <input class="input" type="text" placeholder="Texte mis en indication dans le champs à remplir ('input')">
+	    <input class="input" type="text" placeholder="Texte mis en indication dans le champ à remplir ('input')">
 	  </div>
 	  <p class="help">"Help text" pour éventuellement donner des indications</p>
 	</div>
@@ -269,7 +269,7 @@ Maintenant que nous avons les bases, voici ce que nous proposons pour le code ht
 			<div class="field has-addons has-icons-right">
 			  <p class="control">
 			    <input class="input" type="text" placeholder="prenom.nom">
-				<!-- mettre type="email" si vous faites un champs email classique -->
+				<!-- mettre type="email" si vous faites un champ email classique -->
 			  </p>
 			  <p class="control">
 			    <a class="button is-static">
@@ -339,7 +339,7 @@ Maintenant que nous avons les bases, voici ce que nous proposons pour le code ht
 			<input class="input is-required" type="text" placeholder='Par exemple : Spam via formulaire de contact'>
 		      </div>
 		      <p class="help is-required">
-			Ce champs est obligatoire
+			Ce champ est obligatoire
 		      </p>
 		    </div>
 		  </div>
@@ -379,52 +379,65 @@ Maintenant que nous avons les bases, voici ce que nous proposons pour le code ht
 	</html>
 	
 Récupération des champs du formulaire en javaScript et affichage de messages d'alerte
-^^^^^^^^^^
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 Nous allons maintenant récupérer les réponses du formulaire pour pouvoir les afficher dans un message d'alerte. Nous allons aussi rajouter un bouton reset qui réinitialise tous les champs. Par ailleurs, plusieurs messages d'alerte indiquent lorsque nous envoyons les données ou lorsqu'on réinitialise la page.
 
-On commence par créer un fichier :file:`form.js` que l'on place dans un dossier script.
+On commence par créer un fichier :file:`form.js` que l'on place dans un dossier :code:`script`.
 
 .. code-block:: js
 
 	var myForm = document.getElementById('myForm');
 
+	
 	myForm.addEventListener('submit', function(e) {
-		if(confirm("Êtes-vous sûr de vouloir envoyer le formulaire ?")){ // première fenêtre d'alerte
-		myForm.submit() // le formulaire est envoyé
+		//cette fonction permet à l'utilisateur de valider ou non l'envoi du formulaire
+		if(confirm("Êtes-vous sûr de vouloir envoyer le formulaire ?")){ 
+			// demande la confirmation à l'utilisateur (renvoie true ou false)
+			myForm.submit() // le formulaire est envoyé
 
-		var message = 'Vous avez envoyé le formulaire !\n\nVotre nom est : ' + document.getElementById('name').value + '.\n' // le champ nom est obligatoire donc on l'affiche dans la deuxième alerte quoi qu'il arrive
+			var message = 'Vous avez envoyé le formulaire !\n\nVotre nom est : ' 
+			+ document.getElementById('name').value + '.\n' 
+			// le champ "nom" est obligatoire donc on l'affiche dans la deuxième alerte quoi qu'il arrive
 
 
-		if (document.getElementById('mail').value){ //si le champ mail est rempli
-			message += 'Votre adresse mail est : ' + document.getElementById('mail').value + '@' + document.getElementById('domaine').value + '.\n' //on le renvoie dans la deuxième alerte
+			if (document.getElementById('mail').value){ //si le champ mail est rempli
+				message += 'Votre adresse mail est : ' + document.getElementById('mail').value
+				+ '@' + document.getElementById('domaine').value + '.\n' 
+				//on l'affiche dans la deuxième alerte
 			}
 
-		if (document.getElementById('tel').value){ //idem
-			message += 'Votre numéro de téléphone est le : ' + document.getElementById('tel').value + '.\n' //idem
-		}
+			if (document.getElementById('tel').value){ //idem
+				message += 'Votre numéro de téléphone est le : ' 
+				+ document.getElementById('tel').value + '.\n'
+			}
 
-		if (document.getElementById('object').value){
-			message += 'L\'objet de votre contact est : ' + document.getElementById('object').value + '.\n'
-		}
+			if (document.getElementById('object').value){
+				message += 'L\'objet de votre contact est : ' 
+				+ document.getElementById('object').value + '.\n'
+			}
 
-		if (document.getElementById('msg').value){
-			message += 'Votre message est : ' + document.getElementById('msg').value + '.\n'
-		}
+			if (document.getElementById('msg').value){
+				message += 'Votre message est : ' 
+				+ document.getElementById('msg').value + '.\n'
+			}
 
-		alert(message) //on envoie l'alerte
+			alert(message) //on affiche l'alerte avec le message contruit précédemment
 
-	    e.preventDefault();
+		    e.preventDefault();
+		    
 		} else {
-		   e.returnValue = false; //si on ne veut pas envoyer le formulaire, les champs gardent les mêmes valeurs
+		   e.returnValue = false; 
+		   //pour que les champs gardent les mêmes valeurs si on ne veut pas envoyer le formulaire
 		}
 
 
 	});
 
-	myForm.addEventListener('reset', function(e) { //pour réinitialiser le questionnaire
+	myForm.addEventListener('reset', function(e) { 
+		//de même, pour confirmer ou non la réinitialisation du formulaire
 		if(confirm("Voulez-vous vraiment réinitialiser le formulaire ?")){
-	    alert('Vous avez réinitialisé le formulaire !');
+	    	alert('Vous avez réinitialisé le formulaire !');
 	    } else {
 	    e.returnValue = false
 	    }
@@ -442,27 +455,23 @@ On ajoute ensuite à la fin du fichier :file:`commentaires.ejs` la ligne suivant
 
 	<script type="text/javascript" src="/js/form.js"></script>
 
-On rajoute également des paramètres id ="..." afin de pour voir les appeler dans le fichier form.js.
+On rajoute également des paramètres :code:`id="..."` afin de pour voir les appeler dans le fichier :code:`form.js`.
 
 Le fichier :file:`commentaires.ejs` devient donc :
 
 .. code-block:: html
 
 	<html>
-
 	<head>
 
-
-		<% include partials/head_css_import.ejs %>
+	<% include partials/head_css_import.ejs %>
 
 	    <meta charset="utf-8" />
 	    <title>Commentaires</title>
 	    <link rel="stylesheet" type="text/css" href="/static/node_modules/bulma/css/bulma.min.css">
-
-
-
+	    
 	</head>
-
+	
 	<body>
 
 	    <% include partials/navbar.ejs %>
@@ -476,7 +485,9 @@ Le fichier :file:`commentaires.ejs` devient donc :
 		      <div class="field-body">
 			<div class="field">
 			  <p class="control is-expanded">
-			    <input id="name" class="input" type="text" placeholder="Ton petit nom" required="required"> <!-- pour chaque input des champs du formulaire on ajoute un id -->
+			    <input id="name" class="input" type="text" placeholder="Ton petit nom" required="required">
+			    <!-- pour chaque input des champs du formulaire on ajoute un id 
+			    "required" permet d'obliger de remplissage de ce champ -->
 			  </p>
 			</div>
 			    <div class="field has-addons has-icons-right">
@@ -513,7 +524,8 @@ Le fichier :file:`commentaires.ejs` devient donc :
 			      </a>
 			    </p>
 			    <p class="control is-expanded">
-			      <input id="tel" class="input" type="number" placeholder="Numéro de téléphone"> <!-- type number pour qu'on ne puisse mettre que des numéros -->
+			      <input id="tel" class="input" type="number" placeholder="Numéro de téléphone">
+			      <!-- type number pour qu'on ne puisse mettre que des numéros -->
 			    </p>
 			  </div>
 			  <p class="help">Du coup, n'écrivez pas le premier "0"</p>
@@ -549,7 +561,8 @@ Le fichier :file:`commentaires.ejs` devient donc :
 		      <div class="field-body">
 			<div class="field">
 			  <div class="control">
-			    <input id="object" class="input is-required" type="text" placeholder='Par exemple : Spam via formulaire de contact'>
+			    <input id="object" class="input is-required" type="text" 
+			    placeholder='Par exemple : Spam via formulaire de contact'>
 			  </div>
 			  <p class="help is-required">
 			    Ce champs est obligatoire
@@ -565,7 +578,8 @@ Le fichier :file:`commentaires.ejs` devient donc :
 		      <div class="field-body">
 			<div class="field">
 			  <div class="control">
-			    <textarea id="msg" class="textarea" placeholder="Comment puis-je vous aider ?"></textarea>
+			    <textarea id="msg" class="textarea" placeholder="Comment puis-je vous aider ?">
+			    </textarea>
 			  </div>
 			</div>
 		      </div>
@@ -578,8 +592,10 @@ Le fichier :file:`commentaires.ejs` devient donc :
 		      <div class="field-body">
 			<div class="field">
 			  <div class="control">
-			    <input type="submit" value="Envoyer le formulaire" class="button is-primary"/> <!-- ajout du type submit -->
-			     <input type="reset" value="Reset" class="button is-secondary"/> <!-- ajout du type reset -->
+			    <input type="submit" value="Envoyer le formulaire" class="button is-primary"/>
+			    <!-- ajout du type submit -->
+			     <input type="reset" value="Reset" class="button is-secondary"/>
+			     <!-- ajout du type reset -->
 			  </div>
 			</div>
 		      </div>
@@ -587,17 +603,14 @@ Le fichier :file:`commentaires.ejs` devient donc :
 		</form>
 	    </div>
 
-
-		<script type="text/javascript" src="/js/form.js"></script>
-
+	    <script type="text/javascript" src="/js/form.js"></script>
 
 	    <% include partials/js_import.ejs %>
 
 	</body>
-
 	</html>
 
-Dans le fichier :file:`app.ejs`, on ajoute :
+Dans le fichier :file:`app.ejs`, on ajoute (de la même manière qu'on utilisait :code:`/static` pour :code:`/assets`) : 
 
 .. code-block:: js
 
