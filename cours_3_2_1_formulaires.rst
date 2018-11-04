@@ -130,6 +130,15 @@ On va utiliser ces query strings dans notre template. Commençons par passer les
         response.render("commentaires", {qs: request.query})
     })
 
+En cas d'erreur sur lé définition de qs, il est possible d'écrire en choisissant la solution 1 ou 2 :
+
+.. code-block:: js
+
+	app.get('/commentaires', function(request, response) {
+	    // qs = {"commentaire": "top"} solution 1 hardcodage
+	    // qs = request.query; solution 2 avec les paramètres get
+		response.render("commentaires", {qs: qs})
+	});
 
 L'objet qs est passé en paramètre de notre template et prend la valeur de notre query string. Dans notre cas, il a donc 2 champs correspondant aux noms de nos formulaires, à savoir :code:`qs.pseudo` et :code:`qs.comment`.
 
